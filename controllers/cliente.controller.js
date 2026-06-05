@@ -10,6 +10,7 @@ exports.consultar = async (req, res) => {
     }
 };
 
+
 exports.consultarId = async (req, res) => {
     try {
         const cliente = await Cliente.findById(req.params.id);

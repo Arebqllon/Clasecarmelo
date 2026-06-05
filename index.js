@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const conectarDB = require('./config/connectiondb');
 
+
+
 const clienteController = require('./controllers/cliente.controller');
 const servicioController = require('./controllers/servicio.controller');
 const productoController = require('./controllers/producto.controller');
@@ -11,10 +13,20 @@ const app = express();
 const PORT = 8000;
 
 app.use(express.json());
+app.set('view engine', 'ejs');
 
 // Conexión a MongoDB
 conectarDB();
 
+app.get('/saludar', function(req,res){
+   fetch('https://clasecarmelo-1.onrender.com/clientes')
+   .then(response => response.json())
+   .then(data => {
+       res.render('pages/index2',
+           {clientes:data}
+       )
+   });
+});
 
 app.get('/clientes', clienteController.consultar);
 app.get('/clientes/:id', clienteController.consultarId);
